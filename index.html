@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>แบบสำรวจความพึงพอใจลูกค้า</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/demos.css">
+  <link rel="stylesheet" href="css/jquery-ui-1.7.2.custom.css">
+  <script src="js/jquery-1.3.2.min.js"></script>
+  <script src="js/jquery-ui-1.7.2.custom.min.js"></script>
+  <script src="js/ui.datepicker.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#datecheck").datepicker();
+    });
+    $(function () {
+      $("#datesave").datepicker();
+    });
+    function chkError() {
+      var txt_1 = document.form1.txt_quality.value;
+      var txt_2 = document.form1.txt_credit.value;
+      var txt_3 = document.form1.txt_reput.value;
+      var txt_4 = document.form1.txt_price.value;
+      var txt_5 = document.form1.txt_company.value;
+      var txt_6 = document.form1.txt_delivery.value;
+      var message_ok = '';
+      var message_1 = '<span style=color:red;font-size:1rem;font-style:italic>โปรดใส่ตัวเลขเรียงลำดับให้ถูกต้อง 1-6 </span>';
+      var message_2 = '<span style=color:red;font-size:1rem;font-style:italic>โปรดใส่ตัวเลขเรียงลำดับให้ถูกต้อง ตัวเลขห้ามซ้ำกัน !</span>';
+      if (txt_1.charAt().search(/[1-6]/) < 0 ||
+          txt_2.charAt().search(/[1-6]/) < 0 ||
+          txt_3.charAt().search(/[1-6]/) < 0 ||
+          txt_4.charAt().search(/[1-6]/) < 0 ||
+          txt_5.charAt().search(/[1-6]/) < 0 ||
+          txt_6.charAt().search(/[1-6]/) < 0) {
+          document.getElementById('Error').innerHTML = message_1;
+          return false;
+      } else {
+        if (txt_1 == txt_2 || txt_2 == txt_3 || txt_3 == txt_4 || txt_4 == txt_5 || txt_5 == txt_6 ||
+          txt_6 == txt_1 || txt_5 == txt_1 || txt_4 == txt_1 || txt_3 == txt_1 || txt_6 == txt_2 || txt_5 == txt_2 ||
+          txt_4 == txt_2 || txt_6 == txt_3 || txt_5 == txt_3 || txt_6 == txt_4) {
+          document.getElementById('Error').innerHTML = message_2;
+          return false;
+        }
+      }
+
+    }
+
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <form name="form1" method="POST" action="app/process.php">
+      <div class="form-group">
+        <div class="mainbox">
+          <table width="100%" class="table table-bordered wdth">
+            <tr class="txt-head">
+              <td colspan="4">แบบสำรวจความพึงพอใจลูกค้า</td>
+            </tr>
+            <tr class="txt-title">
+              <td width="30%">วันที่รับแบบสำรวจ</td>
+              <td width="25%"><input type="text" name="inputdate" class="form-control demo" id="datecheck" required></td>
+              <td width="20%">บริษัท</td>
+              <td width="25%"><input type="text" name="companyname" class="form-control"></td>
+            </tr>
+            <tr class="txt-title">
+              <td>ชื่อผู้ตอบแบบสอบถาม/ให้ข้อมูล</td>
+              <td><input type="text" name="userperson" class="form-control"></td>
+              <td>ตำแหน่ง/หน่วยงาน</td>
+              <td><input type="text" name="department" class="form-control"></td>
+            </tr>
+          </table><br>
+
+          <table width="100%" class="table table-bordered">
+            <tr class="txt-bar">
+              <td width="40%">หัวข้อพิจราณา</td>
+              <td width="10%">ดีมาก (4)</td>
+              <td width="11%">ดี (3)</td>
+              <td width="10%">พอใช้ (2)</td>
+              <td width="12%">ปรับปรุง (1)</td>
+              <td width="17%">รายละเอียดเพิ่มเติม</td>
+            </tr>
+            <tr class="txt-normal">
+              <td>1.ความรวดเร็วและการตรงต่อเวลาในการบริการซ่อม</td>
+              <td align="center"><input type="radio" name="ra_fastness" value="4" class="form-control" required></td>
+              <td align="center"><input type="radio" name="ra_fastness" value="3" class="form-control"></td>
+              <td align="center"><input type="radio" name="ra_fastness" value="2" class="form-control"></td>
+              <td align="center"><input type="radio" name="ra_fastness" value="1" class="form-control"></td>
+              <td><textarea name="detail_fastness" cols="30" class="form-control"></textarea></td>
+            </tr>
+            <tr class="txt-normal">
+              <td>2.คุณภาพการซ่อมมีความเรียบร้อยสามารถใช้งานได้ต่อเนื่อง</td>
+              <td align="center"><input type="radio" name="ra_quality" value="4" class="form-control" required></td>
+              <td align="center"><input type="radio" name="ra_quality" value="3" class="form-control"></td>
+              <td align="center"><input type="radio" name="ra_quality" value="2" class="form-control"></td>
+              <td align="center"><input type="radio" name="ra_quality" value="1" class="form-control"></td>
+              <td><textarea name="detail_quality" cols="30" class="form-control"></textarea></td>
+            </tr>
+            <tr class="txt-normal">
+              <td>3.ความสะอาดและความเป็นระเบียบของพื้นที่ซ่อมของลูกค้า</td>
+              <td align="center"><input type="radio" name="ra_neatness" value="4" class="form-control" required></td>
+              <td align="center"><input type="radio" name="ra_neatness" value="3" class="form-control"></td>
+              <td align="center"><input type="radio" name="ra_neatness" value="2" class="form-control"></td>
+              <td align="center"><input type="radio" name="ra_neatness" value="1" class="form-control"></td>
+              <td><textarea name="detail_neatness" cols="30" class="form-control"></textarea></td>
+            </tr>
+            <tr class="txt-normal">
+              <td>4.มารยาทของช่างซ่อมบำรุงมีความสุภาพเรียบร้อย</td>
+              <td align="center"><input type="radio" name="ra_courtesy" value="4" class="form-control" required></td>
+              <td align="center"><input type="radio" name="ra_courtesy" value="3" class="form-control"></td>
+              <td align="center"><input type="radio" name="ra_courtesy" value="2" class="form-control"></td>
+              <td align="center"><input type="radio" name="ra_courtesy" value="1" class="form-control"></td>
+              <td><textarea name="detail_courtesy" cols="30" class="form-control"></textarea></td>
+            </tr>
+            <tr class="txt-normal">
+              <td>5.ความพึงพอใจโดยรวมในการให้บริการของบริษัทฯ</td>
+              <td align="center"><input type="radio" name="ra_satis" value="4" class="form-control" required></td>
+              <td align="center"><input type="radio" name="ra_satis" value="3" class="form-control"></td>
+              <td align="center"><input type="radio" name="ra_satis" value="2" class="form-control"></td>
+              <td align="center"><input type="radio" name="ra_satis" value="1" class="form-control"></td>
+              <td><textarea name="detail_satis" cols="30" class="form-control"></textarea></td>
+            </tr>
+            <tr class="txt-bar">
+              <td>คะแนนเต็มรวมทั้งหมด</td>
+              <td bgcolor="#FFFFFF">20</td>
+              <td>คะแนนที่ได้</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td>% ที่ได้</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+            </tr>
+          </table>
+          <br>
+          <table width="100%" class="table table-bordered">
+            <tr class="txt-bar2">
+              <td colspan="6">บริษัทท่านมีนโยบายการคัดเลือกผู้ขายอย่างไร ?</td>
+            </tr>
+            <tr class="txt-normal2">
+              <td colspan="6">เรียงลำดับจากมากไปน้อย (1 มากสุด) - (6 น้อยสุด)
+                <label for="textfield"> ใส่ตัวเลขในช่องสี่เหลี่ยม</label></td>
+            </tr>
+            <tr class="txt-normal">
+              <td align="center"><input type="text" name="txt_quality" size="3" maxlength="1" id="id1" class="form-control"
+                  required></td>
+              <td>คุณภาพสินค้า/บริการ</td>
+              <td align="center"><input type="text" name="txt_credit" size="3" maxlength="1" id="id2" class="form-control"
+                  required></td>
+              <td>เครดิตชำระเงิน</td>
+              <td align="center"><input type="text" name="txt_reput" size="3" maxlength="1" id="id3" class="form-control"
+                  required></td>
+              <td>ชื่อเสียงบริษัท</td>
+            </tr>
+            <tr class="txt-normal">
+              <td align="center"><input type="text" name="txt_price" size="3" maxlength="1" id="id4" class="form-control"
+                  required></td>
+              <td>ราคาสินค้า</td>
+              <td align="center"><input type="text" name="txt_company" size="3" maxlength="1" id="id5" class="form-control"
+                  required></td>
+              <td>ระบบคุณภาพของบริษัท</td>
+              <td align="center"><input type="text" name="txt_delivery" size="3" maxlength="1" id="id6" class="form-control"
+                  required></td>
+              <td>ระยะเวลาการส่งมอบ</td>
+            </tr>
+          </table>
+          <span id="Error" align="center"></span>
+          <br>
+          <table width="100%" class="table table-bordered">
+            <tr class="txt-bar2">
+              <td colspan="4">คำแนะนำเพิ่มเติม</td>
+            </tr>
+            <tr>
+              <td colspan="4"><label for="textarea"></label>
+                <textarea name="comment" cols="100" rows="5" id="comment" class="form-control"></textarea></td>
+            </tr>
+            <tr class="txt-bar2">
+              <td width="20%">ชื่อผู้บันทึกข้อมูล</td>
+              <td width="30%" bgcolor="#fff"><input type="text" name="usersave" class="form-control" required></td>
+              <td width="20%">วันที่บันทึก</td>
+              <td width="30%" bgcolor="#fff"><input type="text" id="datesave" name="datesave" class="form-control"
+                  required></td>
+            </tr>
+          </table>
+          <br>
+          <div class="clssbtl">
+            <input type="reset" name="button2" id="res" value="Reset">
+            <input type="submit" name="button3" id="sub" value="บันทึกข้อมูล" onclick="return chkError()">
+          </div>
+        </div>
+      </div>
+    </form>
+    <div>
+      <p class="txt-thank">บริษัทขอขอบคุณสำหรับข้อมูลอันเป็นประโยชน์ในการที่จะนำไปปรับปรุง
+        และพัฒนาสินค้าและบริการของเรา</p>
+    </div>
+  </div>
+</body>
+
+</html>
